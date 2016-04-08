@@ -1,0 +1,131 @@
+html {
+	width:100%;
+	height:100%;
+}
+body {
+	background-color: #fcfcfc;
+	font:x-small arial,helvetica,freesans,sans-serif;
+}
+header {
+	position: relative;
+	width:100%;
+	height:60px;
+	display: inline-flex;
+	justify-content: space-between;
+	background-color: #c4170c;
+	border-bottom: 3px solid #7e0e08;
+}
+
+header .menu {
+	position: absolute;
+	top:10px;
+	left:50px;
+	width:60px;
+	height:30px;
+	color: white;
+	line-height: 30px;
+	text-align: center;
+	font-size:1.5rem;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+header .logo {
+	position: absolute;
+	left:50%;
+	right:50%;
+	width:50px;
+	height:50px;
+	color: white;
+	line-height: 50px;
+	text-align: center;
+	font-size:2rem;
+	font-weight: 900;
+}
+
+header .busca {
+	position: absolute;
+	padding-left: 30px;
+	top:10px;
+	right:50px;
+	width:150px;
+	height:30px;
+	background-color: #7e0e08;
+	color: white;
+	line-height: 30px;
+	text-align: left;
+	font-size:1rem;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+.container {
+	width: calc(100% - 10rem);
+	display: inline-flex;
+	margin-top:10px;
+	height:550px;
+	padding-left:5rem;
+}
+.container:nth-child(2){
+	margin-top:50px;
+}
+
+.noticias-principais {
+	width:calc(50% - 6rem);
+	background-color: white;
+	border:1px solid gray;
+	padding:2rem 3rem 2rem 3rem;
+}
+.noticia-principal h1{
+	color: #c4170c;
+	font-size:3rem;
+	font-weight: 900;
+}
+
+.noticias-secundarias {
+	width: 50%;
+	height:100%;
+	margin-left:10px;
+}
+
+.noticia-secundaria {
+	width:calc(100% - 6rem);
+	height: calc(50% - 5px - 6rem);
+	background-color: gray;
+	padding:3rem;
+}
+.noticia-secundaria h2{
+	font-size:32px;
+	width:60%;
+	font-weight: 900;
+	color:white;
+}
+.noticia-secundaria:nth-child(2){
+	margin-top:10px;
+}
+.container .noticias{
+	width:calc(70% - 5rem);
+	height:100px;
+	border:1px solid blue;
+	padding-right: 5rem;
+	border-top:1px solid #c8c8c8;
+}
+.container:nth-child(3){
+	margin-top:4rem;
+}
+.noticias{}
+.noticia{}
+.noticia-header{
+	position:relative;
+}
+.noticia-header .categoria{
+	position:absolute;
+	left:0;
+}
+.noticia-header .noticia-post-tempo{
+	position:absolute;
+	right:0;
+}
+.container .noticias-especificas{
+	width:30%;
+	border:1px solid gray;
+}

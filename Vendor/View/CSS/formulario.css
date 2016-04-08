@@ -1,0 +1,13 @@
+.destaque{
+	display:inline-flex;
+
+}
+
+.destaque-opcoes{
+	opacity: 0;
+}
+
+.destaque:checked + div{
+	transition:1s;
+	opacity:1;
+} 
