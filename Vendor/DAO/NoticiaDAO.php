@@ -1,51 +1,41 @@
 <?php
 namespace Vendor\DAO;
 use Vendor\Model\Noticia;
+use Vendor\Validator\ValidatorNoticia;
 class NoticiaDAO{
 	private $con;
 	public function __construct(\PDO $con){
 		$this->con = $con;
 	}
+	
+	private function bindNoticia($query, $noticia){
+		$stm = $this->con->prepare($query);
+		$stm->bindValue(":titulo",$noticia->getTitulo());
+		$stm->bindValue(":subTitulo",$noticia->getSubTitulo());
+		$stm->bindValue(":categoria",$noticia->getCategoria());
+		$stm->bindValue(":conteudo",$noticia->getConteudo());
+		$stm->bindValue(":dataUltimaAtualizacao",date("Y-m-d H:i:s"));
+		$stm->bindValue(":destaque",$noticia->getDestaque());
+		return $stm;
+	}
 
-	public function adiciona(Noticia $noticia){
-		try{
-			$query = "insert into Noticia (titulo,subTitulo,categoria_id,conteudo,dataCadastro,".
-			"dataUltimaAtualizacao,destaque) values ".
-			"(:titulo,:subTitulo,:categoria_id,:conteudo,:dataCadastro,:dataUltimaAtualizacao,:destaque)";
-			
-			$stm = $this->con->prepare($query);
-			$stm->bindValue(":titulo",$noticia->getTitulo());
-			$stm->bindValue(":subTitulo",$noticia->getSubTitulo());
-			$stm->bindValue(":categoria_id",$noticia->getCategoria());
-			$stm->bindValue(":conteudo",$noticia->getConteudo());
-			$stm->bindValue(":dataCadastro",date("Y-m-d H:i:s"));
-			$stm->bindValue(":dataUltimaAtualizacao",date("Y-m-d H:i:s"));
-			$stm->bindValue(":destaque",$noticia->getDestaque());
-			$stm->execute();
-		}
-		catch(PDOException $e){
-			echo $e->getMessage(); 
-		}
+	public function adiciona(Noticia $noticia){		
+		$query = "INSERT into Noticia (titulo,subTitulo,categoria,conteudo,dataCadastro,".
+		"dataUltimaAtualizacao,destaque) values ".
+		"(:titulo,:subTitulo,:categoria,:conteudo,:dataCadastro,:dataUltimaAtualizacao,:destaque)";
+		
+		$stm = $this->bindNoticia($query, $noticia);
+		$stm->bindValue(":dataCadastro",date("Y-m-d H:i:s"));
+		$stm->execute();
 	}
 
 	public function altera(Noticia $noticia){
-		try{
 		$query = "UPDATE Noticia SET titulo=:titulo, subTitulo=:subTitulo, categoria=:categoria, ".
 		"conteudo=:conteudo, dataUltimaAtualizacao=:dataUltimaAtualizacao, destaque=:destaque WHERE id=:id";
-
-			$stm = $this->con->prepare($query);
-			$stm->bindValue(":titulo",$noticia->getTitulo());
-			$stm->bindValue(":subTitulo",$noticia->getSubTitulo());
-			$stm->bindValue(":categoria",$noticia->getCategoria());
-			$stm->bindValue(":conteudo",$noticia->getConteudo());
-			$stm->bindValue(":dataUltimaAtualizacao",date("Y-m-d H:i:s"));
-			$stm->bindValue(":destaque",$noticia->getDestaque());
-			$stm->bindValue(":id",$noticia->getId());
-			$stm->execute();
-			}
-		catch(PDOException $e){
-			echo $e->getMessage(); 
-		}	
+		
+		$stm = $this->bindNoticia($query, $noticia);
+		$stm->bindValue(":id",$noticia->getId());
+		$stm->execute();
 	}
 
 	public function remove(int $id){
@@ -77,7 +67,14 @@ class NoticiaDAO{
 	  $query = "SELECT * FROM Noticia WHERE id=:id";
 	  $stm = $this->con->prepare($query);
 	  $stm->execute(array(":id"=>$id));
-	  $noticia=$stm->fetch(\PDO::FETCH_ASSOC);
+	  $noticia = new Noticia();
+	  $noticiaArray = $stm->fetch(\PDO::FETCH_ASSOC);
+	  $noticia->setId($id);
+	  $noticia->setTitulo($noticiaArray["titulo"]);
+	  $noticia->setSubTitulo($noticiaArray["subTitulo"]);
+	  $noticia->setCategoria($noticiaArray["categoria"]);
+	  $noticia->setConteudo($noticiaArray["conteudo"]);
+	  $noticia->setDestaque($noticiaArray["destaque"]);
 	  return $noticia;
 	}
 }

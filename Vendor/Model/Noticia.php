@@ -6,7 +6,7 @@ class Noticia{
 	private $subTitulo;
 	private $categoria;
 	private $conteudo;
-	private $desatque;
+	private $destaque;
 	private $dataCadastro;
 	private $dataUltimaAtualizacao;
 	private $qtdViews;

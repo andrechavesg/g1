@@ -1,3 +1,6 @@
+<?php
+use Vendor\Model\Noticia;
+?>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -9,7 +12,7 @@
 <body>
 <form role="form" action="index.php?c=Noticia&m=Adiciona" method="POST">
 	<?php 
-		$noticia = ["id" => "", "titulo" => "", "subTitulo" => "", "categoria" => "", "conteudo" => "", "destaque" => ""];
+		$noticia = new Noticia();
 		include "Vendor/View/_Shared/form-noticia.php";
 	?>
 <button class="btn btn-warning" type="submit">Salvar</button>
